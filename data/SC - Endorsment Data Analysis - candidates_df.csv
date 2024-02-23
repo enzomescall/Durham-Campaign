@@ -1,0 +1,22 @@
+id,name,year,PA,Indy,Committee,age,race,sex,win,incubent
+1,Steve Schewel,2017,1,1,0,old,white,male,1,0
+2,Farad Ali,2017,0,0,0,middle,black,male,0,0
+3,Satana Deberry,2018,1,0,0,young,black,female,1,0
+4,Roger Echols,2018,0,1,1,old,black,male,0,1
+5,Jillian Johnson,2019,1,1,0,young,black,female,1,1
+6,Charlie Reece,2019,1,1,1,middle,white,male,1,1
+7,Javiera Caballero,2019,1,1,0,young,latinx,female,1,1
+8,Joshua Gunn,2019,0,0,1,young,black,male,0,0
+9,Daniel Meler,2019,0,0,0,,,,0,0
+10,Jacqueline Wagstaff,2019,0,0,0,,,,0,0
+11,Natalie Murdock,2020,1,1,0,young,black,female,1,0
+12,Pierce Freelon,2020,0,0,1,young,black,male,0,0
+13,Gray Ellis,2020,0,0,0,,,,0,0
+14,Leo Williams,2021,0,0,1,young,black,male,1,0
+15,AJ Williams,2021,1,0,0,young,black,male,0,0
+16,Nate Baker,2023,0,1,1,young,white,male,1,0
+17,Javiera Caballero,2023,1,1,0,middle,latinx,female,1,1
+18,Carl Rist,2023,1,1,0,old,white,male,1,0
+19,Khallah Karim,2023,1,0,0,young,black,female,0,0
+20,Monique Holsey-Hyman,2023,0,0,1,old,black,female,0,0
+21,Shella Ann Huggins,2023,0,0,1,middle,black,female,0,0
