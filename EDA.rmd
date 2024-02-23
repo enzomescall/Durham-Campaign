@@ -27,4 +27,15 @@ satana_v_echols = read_csv(paste0(path, "Satana vs. Echols (County Wide).csv"))
 schewel_v_ali = read_csv(paste0(path, "Schewel vs. Ali.csv"))
 ```
 
+## Methodology
+
+Build a table which looks like this:
+
+Result | Precinct | [Candidate 1 info ] | [Candidate 2 info] | [Population info]
+
+Where results is the gap between the to candidates. In a multi-candidate election we can artificially turn it into a series of head-to-head races. We then want to regress on result as the dependent variable and identify the independent variables that are most predictive of the result.
+
+```{r}
+# Buliding the master table
+```
 
