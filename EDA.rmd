@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(tidyverse)
+library(lme4)
+library(lmerTest)
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -96,8 +98,8 @@ head_to_head = function(candidate_df, candidate_names){
 
 ```{r message=FALSE, warning=FALSE}
 aj_v_leo_hth = head_to_head(aj_v_leo, c("AJ Williams", "Leonardo Williams"))
-baker_v_caballero_hth = head_to_head(baker_v_caballero, c("Nate Baker", "Javiera Caballero", "Carl Rist", "Khalilah Karim", "Monique Holsey-Hyman", "Shelia Ann Huggins"))
-johnson_v_reece_hth = head_to_head(johnson_v_reece, c("Jillian Johnson", "Charlie Reece", "Javiera Caballero", "Daniel Meier", "Jacqueline Wagstaff"))
+baker_v_caballero_hth = head_to_head(baker_v_caballero, c("Nate Baker", "Javiera Caballero1", "Carl Rist", "Khalilah Karim", "Monique Holsey-Hyman", "Shelia Ann Huggins"))
+johnson_v_reece_hth = head_to_head(johnson_v_reece, c("Jillian Johnson", "Charlie Reece", "Javiera Caballero0", "Daniel Meier", "Jacqueline Wagstaff"))
 murdock_v_freelon_hth = head_to_head(murdock_v_freelon, c("Natalie Murdock", "Pierce Freelon", "Gray Ellis"))
 satana_v_echols_hth = head_to_head(satana_v_echols, c("Satana Deberry", "Roger Echols", "Daniel Meier"))
 schewel_v_ali_hth = head_to_head(schewel_v_ali, c("Steve Schewel", "Farad Ali"))
@@ -112,13 +114,22 @@ hth_df = bind_rows(aj_v_leo_hth, baker_v_caballero_hth, johnson_v_reece_hth, mur
 # Joining with precinct_pct and candidates_df
 full = hth_df %>%
   left_join(candidates_df %>% select(-id), by = c("c1_name" = "name")) %>%
-  left_join(candidates_df %>% select(-id, year), by = c("c2_name" = "name"), suffix = c(".c1", ".c2")) %>%
-  left_join(precinct_pct, by = "Precinct") 
+  left_join(candidates_df %>% select(-id), by = c("c2_name" = "name"), suffix = c(".c1", ".c2")) %>%
+  inner_join(precinct_pct, by = "Precinct") 
   
+# write.csv(full, "./data/full_elections.csv")
+```
+
+
+```{r}
+# Making key variables to regress on 
+
 ```
 
 ## Model
 
+
+TODO WIP
 Let $y_1,\dots,y_n$ be independent random variables such that $y_i \sim Beta(\mu, \phi)$ where $E(y) = \mu$ and unknown precision $\phi$. The logit beta regression model will rely on the following parameters:
 
 * $y_i$ is the observed percentage of a head-to-head race between candidates $c_1$ and $c_2$ in precinct $i$.
@@ -128,25 +139,19 @@ Let $y_1,\dots,y_n$ be independent random variables such that $y_i \sim Beta(\mu
   + $\beta_2$ for `incubent`
   + $\beta_3$ for interaction between `race` and `race.c1``
   + $\beta_4$ for interaction between `race` and `race.c2``
-  + $\beta_5$ for `age.c1`
-  + $\beta_6$ for `age.c2`
+  + $\beta_5$ 
+  + $\beta_6$ 
 * Random effects:
   $\(b_1(\text{Precinct}_i)\)$ is the random intercept for the i-th precinct
    $\(b_2(\text{Precinct}_i) \times \text{Age}_{j[i]}\)$ is the random intercept for the j-th age group nested within the i-th precinct.
 Finally, $\epsilon_{ij}$ represents the residual error for the j-th age group in the i-th precinct.
 
 
-
-```{r}
-library(lme4)
-```
-
 ```{r}
 # family = list(family="beta",link="logit")
 
-model = lmer(result ~ (1|Precinct) + PA.c1 + Indy.c1 + Committee.c1 + PA.c2 + Indy.c2 + Committee.c2, data = full)
-```
-```{r}
+model = lmer(result ~ PA.c1 + Indy.c1 + Committee.c1 + (1 + PA.c1 + Indy.c1 + Committee.c1|Precinct),
+             data = full)
 summary(model)
 ```
 

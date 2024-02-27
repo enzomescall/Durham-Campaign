@@ -1,4 +1,4 @@
-Precinct,Reporting Status,Nate Baker,%Nate Baker,Javiera Caballero,%Javiera Caballero,Carl Rist,%Carl Rist,Khalilah Karim,%Khalilah Karim,Monique Holsey-Hyman,%Monique Holsey-Hyman,Shelia Ann Huggins,%Shelia Ann Huggins,Write-In (Miscellaneous),Sherri Zann Rosenthal,Bonita Green,Shanetta Burris,J.J. Campbell,SUM
+Precinct,Reporting Status,Nate Baker,%Nate Baker,Javiera Caballero1,%Javiera Caballero1,Carl Rist,%Carl Rist,Khalilah Karim,%Khalilah Karim,Monique Holsey-Hyman,%Monique Holsey-Hyman,Shelia Ann Huggins,%Shelia Ann Huggins,Write-In (Miscellaneous),Sherri Zann Rosenthal,Bonita Green,Shanetta Burris,J.J. Campbell,SUM
 1,Final Canvass Results (official),164,22.9%,176,24.6%,175,24.4%,108,15.1%,46,6.4%,47,6.6%,0,0,0,0,0,716
 2,Final Canvass Results (official),283,22.4%,336,26.6%,327,25.9%,196,15.5%,72,5.7%,46,3.6%,2,0,0,0,0,1262
 3,Final Canvass Results (official),266,20.7%,357,27.8%,325,25.3%,248,19.3%,47,3.7%,38,3.0%,3,0,1,0,0,1285
@@ -58,10 +58,10 @@ Precinct,Reporting Status,Nate Baker,%Nate Baker,Javiera Caballero,%Javiera Caba
 55-49,Final Canvass Results (official),5,13.2%,6,15.8%,6,15.8%,7,18.4%,9,23.7%,5,13.2%,0,0,0,0,0,38
 56,Final Canvass Results (official),842,26.6%,718,22.7%,771,24.4%,314,9.9%,227,7.2%,278,8.8%,9,1,0,0,0,3160
 ABS,,338,22.5%,376,25.0%,318,21.2%,212,14.1%,137,9.1%,116,7.7%,1,4,0,0,0,1502
-OS EAST,,"1,249",25.9%,690,14.3%,723,15.0%,555,11.5%,"1,044",21.6%,559,11.6%,4,3,1,2,0,"4,830"
-OS MAIN,,"2,560",22.7%,"2,821",25.1%,"2,733",24.3%,"1,839",16.3%,736,6.5%,537,4.8%,22,8,2,1,1,"11,260"
+OS EAST,,1249,25.9%,690,14.3%,723,15.0%,555,11.5%,1044,21.6%,559,11.6%,4,3,1,2,0,4830
+OS MAIN,,2560,22.7%,2821,25.1%,2733,24.3%,1839,16.3%,736,6.5%,537,4.8%,22,8,2,1,1,11260
 OS NCCU,,510,22.6%,327,14.5%,269,11.9%,307,13.6%,484,21.4%,357,15.8%,2,1,0,0,0,2257
-OS NORTH,,"1,204",22.5%,"1,168",21.9%,"1,189",22.3%,759,14.2%,471,8.8%,528,9.9%,18,3,0,0,0,"5,340"
-OS SOUTH,,"2,405",22.0%,"2,497",22.9%,"2,323",21.3%,"1,644",15.1%,"1,114",10.2%,900,8.2%,22,7,2,4,1,"10,919"
+OS NORTH,,1204,22.5%,1168,21.9%,1189,22.3%,759,14.2%,471,8.8%,528,9.9%,18,3,0,0,0,5340
+OS SOUTH,,2405,22.0%,2497,22.9%,2323,21.3%,1644,15.1%,1114,10.2%,900,8.2%,22,7,2,4,1,10919
 PROVISIONAL,,163,22.7%,92,12.8%,93,13.0%,120,16.7%,144,20.1%,100,13.9%,6,0,0,0,0,718
 TRANSFER,,0,#DIV/0!,0,#DIV/0!,0,#DIV/0!,0,#DIV/0!,0,#DIV/0!,0,#DIV/0!,0,0,0,0,0,0

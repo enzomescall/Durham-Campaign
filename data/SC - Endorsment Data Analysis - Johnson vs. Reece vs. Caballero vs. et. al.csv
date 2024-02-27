@@ -1,4 +1,4 @@
-Precinct,Reporting Status,Jillian Johnson,%Jillian Johnson,Charlie Reece,%Charlie Reece,Javiera Caballero,%Javiera Caballero,Joshua Gunn,%Joshua Gunn,Daniel Meier,%Daniel Meier,Jacqueline Wagstaff,%Jacqueline Wagstaff,Write-In (Miscellaneous),John Tarantino,Mark Anthony Middleton,Victoria Peterson,Ricardo Correa,SUM
+Precinct,Reporting Status,Jillian Johnson,%Jillian Johnson,Charlie Reece,%Charlie Reece,Javiera Caballero0,%Javiera Caballero0,Joshua Gunn,%Joshua Gunn,Daniel Meier,%Daniel Meier,Jacqueline Wagstaff,%Jacqueline Wagstaff,Write-In (Miscellaneous),John Tarantino,Mark Anthony Middleton,Victoria Peterson,Ricardo Correa,SUM
 1,Final Canvass Results (official),166,21.5%,158,20.5%,171,22.2%,129,16.7%,82,10.6%,57,7.4%,9,0,0,0,0,772
 2,Final Canvass Results (official),349,26.3%,310,23.4%,367,27.7%,148,11.2%,68,5.1%,84,6.3%,1,0,0,0,0,1327
 3,Final Canvass Results (official),388,27.1%,372,26.0%,407,28.4%,143,10.0%,62,4.3%,54,3.8%,5,0,0,0,1,1432
@@ -56,9 +56,9 @@ Precinct,Reporting Status,Jillian Johnson,%Jillian Johnson,Charlie Reece,%Charli
 55-11,Final Canvass Results (official),132,20.5%,97,15.1%,94,14.6%,162,25.2%,37,5.8%,121,18.8%,0,0,0,0,0,643
 55-49,Final Canvass Results (official),16,20.3%,8,10.1%,11,13.9%,17,21.5%,9,11.4%,18,22.8%,0,0,0,0,0,79
 ABSENTEE,,153,25.2%,151,24.8%,159,26.2%,64,10.5%,47,7.7%,30,4.9%,4,0,0,0,0,608
-CJRC,,"1,643",22.8%,"1,600",22.2%,"1,629",22.7%,"1,083",15.1%,518,7.2%,702,9.8%,12,0,0,2,3,"7,192"
+CJRC,,1643,22.8%,1600,22.2%,1629,22.7%,1083,15.1%,518,7.2%,702,9.8%,12,0,0,2,3,7192
 NCCU,,415,19.7%,415,19.7%,323,15.4%,547,26.0%,152,7.2%,246,11.7%,3,0,0,1,0,2102
-NRL,,"1,057",22.4%,"1,050",22.2%,990,21.0%,798,16.9%,458,9.7%,353,7.5%,6,8,0,2,3,"4,725"
+NRL,,1057,22.4%,1050,22.2%,990,21.0%,798,16.9%,458,9.7%,353,7.5%,6,8,0,2,3,4725
 PROVISIONAL,,94,19.9%,71,15.0%,79,16.7%,117,24.8%,48,10.2%,62,13.1%,0,0,0,1,0,472
-SRL,,"2,131",20.5%,"2,148",20.7%,"2,000",19.3%,"2,109",20.3%,"1,129",10.9%,821,7.9%,19,4,7,3,2,"10,373"
+SRL,,2131,20.5%,2148,20.7%,2000,19.3%,2109,20.3%,1129,10.9%,821,7.9%,19,4,7,3,2,10373
 TRANSFER,,0,#DIV/0!,0,#DIV/0!,0,#DIV/0!,0,#DIV/0!,0,#DIV/0!,0,#DIV/0!,0,0,0,0,0,0
