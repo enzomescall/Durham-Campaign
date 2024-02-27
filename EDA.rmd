@@ -37,5 +37,60 @@ Where results is the gap between the to candidates. In a multi-candidate electio
 
 ```{r}
 # Buliding the master table
+
+# Demographic percentages of possible voters in the precinct
+precinct_pct = data.frame(lapply(precinct_df %>% select(-precinct_id), function(x) x/precinct_df$Total)) %>%
+  mutate(row = row_number()) %>%
+  right_join(precinct_df %>% select(precinct_id) %>% mutate(row = row_number()), by = "row") %>%
+  select(-row, -Total) %>%
+  select(precinct_id, everything()) 
 ```
+
+```{r}
+pct_to_dec = function(string) {
+  string = gsub("%", "", string)
+  string = as.numeric(string)
+  string = string/100
+  return(string)
+}
+
+
+# Creating a function to clean up race dataframes
+head_to_head = function(candidate_df, candidate_names){
+  hth_df_list = c()
+  
+  # Create a matrix of all combination of candidate_names
+  candidate_combinations = expand.grid(candidate_names, candidate_names) %>%
+    filter(Var1 != Var2) %>%
+    mutate(Var1 = as.character(Var1), Var2 = as.character(Var2))
+  
+  # Loop through the combinations of two names and create a new dataframe
+  for(i in 1:nrow(candidate_combinations)){
+    candidate_1 = candidate_combinations$Var1[i]
+    candidate_2 = candidate_combinations$Var2[i]
+    
+    hth = candidate_df %>%
+      select(Precinct,
+             starts_with(candidate_1), starts_with(candidate_2),
+             starts_with(paste0("%", candidate_1)),
+             starts_with(paste0("%", candidate_2))) %>%
+      mutate(c1_pct = pct_to_dec(get(paste0("%", candidate_1))),
+             c2_pct = pct_to_dec(get(paste0("%", candidate_2))),
+             result = c1_pct - c2_pct,
+             c1_name = candidate_1,
+             c2_name = candidate_2) %>%
+      select(Precinct, c1_name, c2_name, result, c1_pct, c2_pct)
+    hth_df_list = c(hth_df_list, hth)
+  }
+  return(hth_df_list)
+}
+```
+
+```{r}
+head_to_head(aj_v_leo, c("AJ Williams", "Leonardo Williams"))
+```
+
+```{r}
+```
+
 
