@@ -3,8 +3,8 @@ title: "EDA"
 author: "Enzo Moraes Mescall"
 date: "`r Sys.Date()`"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -73,8 +73,7 @@ head_to_head = function(candidate_df, candidate_names){
   # Create a matrix of all combination of candidate_names
   candidate_combinations = expand.grid(candidate_names, candidate_names) %>%
     filter(Var1 != Var2) %>%
-    mutate(Var1 = as.character(Var1), Var2 = as.character(Var2)) %>%
-    filter(Var1 < Var2)
+    mutate(Var1 = as.character(Var1), Var2 = as.character(Var2))
   
   # Loop through the combinations of two names and create a new dataframe
   for(i in 1:nrow(candidate_combinations)){
@@ -142,7 +141,7 @@ Let $y_1,\dots,y_n$ be independent random variables such that $y_i \sim Beta(\mu
   + $\beta_5$ 
   + $\beta_6$ 
 * Random effects:
-  $\(b_1(\text{Precinct}_i)\)$ is the random intercept for the i-th precinct
+  $b_1(\text{Precinct}_i)$ is the random intercept for the i-th precinct
    $\(b_2(\text{Precinct}_i) \times \text{Age}_{j[i]}\)$ is the random intercept for the j-th age group nested within the i-th precinct.
 Finally, $\epsilon_{ij}$ represents the residual error for the j-th age group in the i-th precinct.
 
@@ -150,7 +149,7 @@ Finally, $\epsilon_{ij}$ represents the residual error for the j-th age group in
 ```{r}
 # family = list(family="beta",link="logit")
 
-model = lmer(result ~ PA.c1 + Indy.c1 + Committee.c1 + (1 + PA.c1 + Indy.c1 + Committee.c1|Precinct),
+model = lmer(result ~ PA.c1 + Indy.c1 + Committee.c1 + PA.c2 + Indy.c2 + Committee.c2 + (1 + PA.c1 + Committee.c1|Precinct),
              data = full)
 summary(model)
 ```

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.11.21)  26 FEB 2024 22:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.11.21)  27 FEB 2024 12:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -507,38 +507,17 @@ LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-241.
-(/usr/share/texmf/tex/latex/lm/ts1lmtt.fd
-File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-Overfull \hbox (338.74263pt too wide) in paragraph at lines 241--241
-[]\T1/lmtt/m/n/10 ## Warning in left_join(., candidates_df %>% select(-id), by 
-= c(c1_name = "name")): Detected an unexpected many-to-many relationship betwee
-n \TS1/lmtt/m/n/10 `\T1/lmtt/m/n/10 x\TS1/lmtt/m/n/10 ` \T1/lmtt/m/n/10 and \TS
-1/lmtt/m/n/10 `\T1/lmtt/m/n/10 y\TS1/lmtt/m/n/10 `\T1/lmtt/m/n/10 .[] 
- []
-
-
-Overfull \hbox (375.49252pt too wide) in paragraph at lines 249--249
-[]\T1/lmtt/m/n/10 ## Warning in left_join(., candidates_df %>% select(-id, year
-), by = c(c2_name = "name"), : Detected an unexpected many-to-many relationship
- between \TS1/lmtt/m/n/10 `\T1/lmtt/m/n/10 x\TS1/lmtt/m/n/10 ` \T1/lmtt/m/n/10 
-and \TS1/lmtt/m/n/10 `\T1/lmtt/m/n/10 y\TS1/lmtt/m/n/10 `\T1/lmtt/m/n/10 .[] 
- []
-
-[2]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 254.
+(Font)              <10> on input line 245.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 254.
+(Font)              <7> on input line 245.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 254.
+(Font)              <5> on input line 245.
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-62.
+53.
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
+) [2]
 
 ! LaTeX Error: Bad math environment delimiter.
 
@@ -546,15 +525,15 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.285   Random effects: \(\(
+l.276   Random effects: \(\(
                             b_1(\text{Precinct}_i)\)\) is the random intercept 
 Here is how much of TeX's memory you used:
- 13745 strings out of 478287
- 216999 string characters out of 5849288
+ 13712 strings out of 478287
+ 216420 string characters out of 5849288
  555132 words of memory out of 5000000
- 31664 multiletter control sequences out of 15000+600000
- 513021 words of font info for 95 fonts, out of 8000000 for 9000
+ 31629 multiletter control sequences out of 15000+600000
+ 512882 words of font info for 96 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,6n,77p,1000b,485s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,6n,77p,1000b,394s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 !  ==> Fatal error occurred, no output PDF file produced!

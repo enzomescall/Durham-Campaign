@@ -108,7 +108,7 @@
 
 \title{EDA}
 \author{Enzo Moraes Mescall}
-\date{2024-02-26}
+\date{2024-02-27}
 
 \begin{document}
 \maketitle
@@ -180,8 +180,7 @@ result.
   \CommentTok{\# Create a matrix of all combination of candidate\_names}
 \NormalTok{  candidate\_combinations }\OtherTok{=} \FunctionTok{expand.grid}\NormalTok{(candidate\_names, candidate\_names) }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{filter}\NormalTok{(Var1 }\SpecialCharTok{!=}\NormalTok{ Var2) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Var1 =} \FunctionTok{as.character}\NormalTok{(Var1), }\AttributeTok{Var2 =} \FunctionTok{as.character}\NormalTok{(Var2)) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{filter}\NormalTok{(Var1 }\SpecialCharTok{\textless{}}\NormalTok{ Var2)}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Var1 =} \FunctionTok{as.character}\NormalTok{(Var1), }\AttributeTok{Var2 =} \FunctionTok{as.character}\NormalTok{(Var2))}
   
   \CommentTok{\# Loop through the combinations of two names and create a new dataframe}
   \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(candidate\_combinations))\{}
@@ -207,8 +206,8 @@ result.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{aj\_v\_leo\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(aj\_v\_leo, }\FunctionTok{c}\NormalTok{(}\StringTok{"AJ Williams"}\NormalTok{, }\StringTok{"Leonardo Williams"}\NormalTok{))}
-\NormalTok{baker\_v\_caballero\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(baker\_v\_caballero, }\FunctionTok{c}\NormalTok{(}\StringTok{"Nate Baker"}\NormalTok{, }\StringTok{"Javiera Caballero"}\NormalTok{, }\StringTok{"Carl Rist"}\NormalTok{, }\StringTok{"Khalilah Karim"}\NormalTok{, }\StringTok{"Monique Holsey{-}Hyman"}\NormalTok{, }\StringTok{"Shelia Ann Huggins"}\NormalTok{))}
-\NormalTok{johnson\_v\_reece\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(johnson\_v\_reece, }\FunctionTok{c}\NormalTok{(}\StringTok{"Jillian Johnson"}\NormalTok{, }\StringTok{"Charlie Reece"}\NormalTok{, }\StringTok{"Javiera Caballero"}\NormalTok{, }\StringTok{"Daniel Meier"}\NormalTok{, }\StringTok{"Jacqueline Wagstaff"}\NormalTok{))}
+\NormalTok{baker\_v\_caballero\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(baker\_v\_caballero, }\FunctionTok{c}\NormalTok{(}\StringTok{"Nate Baker"}\NormalTok{, }\StringTok{"Javiera Caballero1"}\NormalTok{, }\StringTok{"Carl Rist"}\NormalTok{, }\StringTok{"Khalilah Karim"}\NormalTok{, }\StringTok{"Monique Holsey{-}Hyman"}\NormalTok{, }\StringTok{"Shelia Ann Huggins"}\NormalTok{))}
+\NormalTok{johnson\_v\_reece\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(johnson\_v\_reece, }\FunctionTok{c}\NormalTok{(}\StringTok{"Jillian Johnson"}\NormalTok{, }\StringTok{"Charlie Reece"}\NormalTok{, }\StringTok{"Javiera Caballero0"}\NormalTok{, }\StringTok{"Daniel Meier"}\NormalTok{, }\StringTok{"Jacqueline Wagstaff"}\NormalTok{))}
 \NormalTok{murdock\_v\_freelon\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(murdock\_v\_freelon, }\FunctionTok{c}\NormalTok{(}\StringTok{"Natalie Murdock"}\NormalTok{, }\StringTok{"Pierce Freelon"}\NormalTok{, }\StringTok{"Gray Ellis"}\NormalTok{))}
 \NormalTok{satana\_v\_echols\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(satana\_v\_echols, }\FunctionTok{c}\NormalTok{(}\StringTok{"Satana Deberry"}\NormalTok{, }\StringTok{"Roger Echols"}\NormalTok{, }\StringTok{"Daniel Meier"}\NormalTok{))}
 \NormalTok{schewel\_v\_ali\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(schewel\_v\_ali, }\FunctionTok{c}\NormalTok{(}\StringTok{"Steve Schewel"}\NormalTok{, }\StringTok{"Farad Ali"}\NormalTok{))}
@@ -227,31 +226,23 @@ result.
 \CommentTok{\# Joining with precinct\_pct and candidates\_df}
 \NormalTok{full }\OtherTok{=}\NormalTok{ hth\_df }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{left\_join}\NormalTok{(candidates\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{id), }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"c1\_name"} \OtherTok{=} \StringTok{"name"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{left\_join}\NormalTok{(candidates\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{id, year), }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"c2\_name"} \OtherTok{=} \StringTok{"name"}\NormalTok{), }\AttributeTok{suffix =} \FunctionTok{c}\NormalTok{(}\StringTok{".c1"}\NormalTok{, }\StringTok{".c2"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{left\_join}\NormalTok{(precinct\_pct, }\AttributeTok{by =} \StringTok{"Precinct"}\NormalTok{) }
+  \FunctionTok{left\_join}\NormalTok{(candidates\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{id), }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"c2\_name"} \OtherTok{=} \StringTok{"name"}\NormalTok{), }\AttributeTok{suffix =} \FunctionTok{c}\NormalTok{(}\StringTok{".c1"}\NormalTok{, }\StringTok{".c2"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{inner\_join}\NormalTok{(precinct\_pct, }\AttributeTok{by =} \StringTok{"Precinct"}\NormalTok{) }
+  
+\CommentTok{\# write.csv(full, "./data/full\_elections.csv")}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## Warning in left_join(., candidates_df %>% select(-id), by = c(c1_name = "name")): Detected an unexpected many-to-many relationship between `x` and `y`.
-## i Row 65 of `x` matches multiple rows in `y`.
-## i Row 15 of `y` matches multiple rows in `x`.
-## i If a many-to-many relationship is expected, set `relationship =
-##   "many-to-many"` to silence this warning.
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in left_join(., candidates_df %>% select(-id, year), by = c(c2_name = "name"), : Detected an unexpected many-to-many relationship between `x` and `y`.
-## i Row 395 of `x` matches multiple rows in `y`.
-## i Row 14 of `y` matches multiple rows in `x`.
-## i If a many-to-many relationship is expected, set `relationship =
-##   "many-to-many"` to silence this warning.
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Making key variables to regress on }
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{model}{%
 \subsection{Model}\label{model}}
 
-Let \(y_1,\dots,y_n\) be independent random variables such that
+TODO WIP Let \(y_1,\dots,y_n\) be independent random variables such that
 \(y_i \sim Beta(\mu, \phi)\) where \(E(y) = \mu\) and unknown precision
 \(\phi\). The logit beta regression model will rely on the following
 parameters:
@@ -277,9 +268,9 @@ parameters:
   \item
     \(\beta_4\) for interaction between \texttt{race} and `race.c2``
   \item
-    \(\beta_5\) for \texttt{age.c1}
+    \(\beta_5\)
   \item
-    \(\beta_6\) for \texttt{age.c2}
+    \(\beta_6\)
   \end{itemize}
 \item
   Random effects: \(\(b_1(\text{Precinct}_i)\)\) is the random intercept
@@ -292,30 +283,10 @@ parameters:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(lme4)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Loading required package: Matrix
-\end{verbatim}
-
-\begin{verbatim}
-## 
-## Attaching package: 'Matrix'
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from 'package:tidyr':
-## 
-##     expand, pack, unpack
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \CommentTok{\# family = list(family="beta",link="logit")}
 
-\NormalTok{model }\OtherTok{=} \FunctionTok{lmer}\NormalTok{(result }\SpecialCharTok{\textasciitilde{}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{Precinct) }\SpecialCharTok{+}\NormalTok{ PA.c1 }\SpecialCharTok{+}\NormalTok{ Indy.c1 }\SpecialCharTok{+}\NormalTok{ Committee.c1 }\SpecialCharTok{+}\NormalTok{ PA.c2 }\SpecialCharTok{+}\NormalTok{ Indy.c2 }\SpecialCharTok{+}\NormalTok{ Committee.c2, }\AttributeTok{data =}\NormalTok{ full)}
+\NormalTok{model }\OtherTok{=} \FunctionTok{lmer}\NormalTok{(result }\SpecialCharTok{\textasciitilde{}}\NormalTok{ PA.c1 }\SpecialCharTok{+}\NormalTok{ Indy.c1 }\SpecialCharTok{+}\NormalTok{ Committee.c1 }\SpecialCharTok{+}\NormalTok{ PA.c2 }\SpecialCharTok{+}\NormalTok{ Indy.c2 }\SpecialCharTok{+}\NormalTok{ Committee.c2 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ PA.c1 }\SpecialCharTok{+}\NormalTok{ Committee.c1}\SpecialCharTok{|}\NormalTok{Precinct),}
+             \AttributeTok{data =}\NormalTok{ full)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -330,41 +301,47 @@ parameters:
 \end{Shaded}
 
 \begin{verbatim}
-## Linear mixed model fit by REML ['lmerMod']
-## Formula: result ~ (1 | Precinct) + PA.c1 + Indy.c1 + Committee.c1 + PA.c2 +  
-##     Indy.c2 + Committee.c2
+## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+## lmerModLmerTest]
+## Formula: 
+## result ~ PA.c1 + Indy.c1 + Committee.c1 + PA.c2 + Indy.c2 + Committee.c2 +  
+##     (1 + PA.c1 + Committee.c1 | Precinct)
 ##    Data: full
 ## 
-## REML criterion at convergence: -1434.7
+## REML criterion at convergence: -1018.1
 ## 
 ## Scaled residuals: 
 ##     Min      1Q  Median      3Q     Max 
-## -4.6474 -0.3046 -0.0154  0.3811  5.7159 
+## -4.1486 -0.4761 -0.0193  0.4545  4.0343 
 ## 
 ## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  Precinct (Intercept) 0.00000  0.0000  
-##  Residual             0.02158  0.1469  
-## Number of obs: 1483, groups:  Precinct, 91
+##  Groups   Name         Variance  Std.Dev. Corr       
+##  Precinct (Intercept)  0.0099159 0.09958             
+##           PA.c1        0.0257804 0.16056  -1.00      
+##           Committee.c1 0.0004151 0.02037  -1.00  1.00
+##  Residual              0.0215773 0.14689             
+## Number of obs: 1142, groups:  Precinct, 36
 ## 
 ## Fixed effects:
-##               Estimate Std. Error t value
-## (Intercept)  -0.050561   0.022792  -2.218
-## PA.c1         0.150461   0.015522   9.693
-## Indy.c1      -0.024970   0.015184  -1.645
-## Committee.c1  0.005119   0.010216   0.501
-## PA.c2        -0.053685   0.023307  -2.303
-## Indy.c2      -0.023490   0.010376  -2.264
-## Committee.c2 -0.052159   0.021942  -2.377
+##                Estimate Std. Error         df t value Pr(>|t|)    
+## (Intercept)   5.874e-03  2.239e-02  6.284e+01   0.262  0.79394    
+## PA.c1         1.057e-01  3.081e-02  4.388e+01   3.432  0.00132 ** 
+## Indy.c1       1.364e-02  1.270e-02  1.103e+03   1.074  0.28326    
+## Committee.c1  2.440e-02  1.195e-02  1.934e+02   2.042  0.04254 *  
+## PA.c2        -1.130e-01  1.480e-02  1.102e+03  -7.639 4.75e-14 ***
+## Indy.c2      -1.477e-02  1.269e-02  1.103e+03  -1.164  0.24479    
+## Committee.c2 -2.675e-02  1.141e-02  1.100e+03  -2.343  0.01929 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Correlation of Fixed Effects:
 ##             (Intr) PA.c1  Indy.1 Cmmt.1 PA.c2  Indy.2
-## PA.c1       -0.250                                   
-## Indy.c1      0.044 -0.832                            
-## Committe.c1 -0.422  0.274 -0.320                     
-## PA.c2       -0.857  0.268 -0.187  0.321              
-## Indy.c2      0.024 -0.208  0.201 -0.036 -0.434       
-## Committe.c2 -0.901  0.121 -0.083  0.396  0.899 -0.201
+## PA.c1       -0.807                                   
+## Indy.c1     -0.051 -0.322                            
+## Committe.c1 -0.557  0.501 -0.289                     
+## PA.c2       -0.310  0.166 -0.195  0.087              
+## Indy.c2     -0.041 -0.098  0.208 -0.003 -0.684       
+## Committe.c2 -0.355  0.044 -0.002  0.210  0.537 -0.306
 ## optimizer (nloptwrap) convergence code: 0 (OK)
 ## boundary (singular) fit: see help('isSingular')
 \end{verbatim}

@@ -11,7 +11,7 @@
 
 <meta name="author" content="Enzo Moraes Mescall" />
 
-<meta name="date" content="2024-02-26" />
+<meta name="date" content="2024-02-27" />
 
 <title>EDA</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">EDA</h1>
 <h4 class="author">Enzo Moraes Mescall</h4>
-<h4 class="date">2024-02-26</h4>
+<h4 class="date">2024-02-27</h4>
 
 </div>
 
@@ -408,8 +408,7 @@ head_to_head = function(candidate_df, candidate_names){
   # Create a matrix of all combination of candidate_names
   candidate_combinations = expand.grid(candidate_names, candidate_names) %&gt;%
     filter(Var1 != Var2) %&gt;%
-    mutate(Var1 = as.character(Var1), Var2 = as.character(Var2)) %&gt;%
-    filter(Var1 &lt; Var2)
+    mutate(Var1 = as.character(Var1), Var2 = as.character(Var2))
   
   # Loop through the combinations of two names and create a new dataframe
   for(i in 1:nrow(candidate_combinations)){
@@ -430,8 +429,8 @@ head_to_head = function(candidate_df, candidate_names){
   return(hth_df)
 }</code></pre>
 <pre class="r"><code>aj_v_leo_hth = head_to_head(aj_v_leo, c(&quot;AJ Williams&quot;, &quot;Leonardo Williams&quot;))
-baker_v_caballero_hth = head_to_head(baker_v_caballero, c(&quot;Nate Baker&quot;, &quot;Javiera Caballero&quot;, &quot;Carl Rist&quot;, &quot;Khalilah Karim&quot;, &quot;Monique Holsey-Hyman&quot;, &quot;Shelia Ann Huggins&quot;))
-johnson_v_reece_hth = head_to_head(johnson_v_reece, c(&quot;Jillian Johnson&quot;, &quot;Charlie Reece&quot;, &quot;Javiera Caballero&quot;, &quot;Daniel Meier&quot;, &quot;Jacqueline Wagstaff&quot;))
+baker_v_caballero_hth = head_to_head(baker_v_caballero, c(&quot;Nate Baker&quot;, &quot;Javiera Caballero1&quot;, &quot;Carl Rist&quot;, &quot;Khalilah Karim&quot;, &quot;Monique Holsey-Hyman&quot;, &quot;Shelia Ann Huggins&quot;))
+johnson_v_reece_hth = head_to_head(johnson_v_reece, c(&quot;Jillian Johnson&quot;, &quot;Charlie Reece&quot;, &quot;Javiera Caballero0&quot;, &quot;Daniel Meier&quot;, &quot;Jacqueline Wagstaff&quot;))
 murdock_v_freelon_hth = head_to_head(murdock_v_freelon, c(&quot;Natalie Murdock&quot;, &quot;Pierce Freelon&quot;, &quot;Gray Ellis&quot;))
 satana_v_echols_hth = head_to_head(satana_v_echols, c(&quot;Satana Deberry&quot;, &quot;Roger Echols&quot;, &quot;Daniel Meier&quot;))
 schewel_v_ali_hth = head_to_head(schewel_v_ali, c(&quot;Steve Schewel&quot;, &quot;Farad Ali&quot;))</code></pre>
@@ -440,24 +439,17 @@ hth_df = bind_rows(aj_v_leo_hth, baker_v_caballero_hth, johnson_v_reece_hth, mur
 <pre class="r"><code># Joining with precinct_pct and candidates_df
 full = hth_df %&gt;%
   left_join(candidates_df %&gt;% select(-id), by = c(&quot;c1_name&quot; = &quot;name&quot;)) %&gt;%
-  left_join(candidates_df %&gt;% select(-id, year), by = c(&quot;c2_name&quot; = &quot;name&quot;), suffix = c(&quot;.c1&quot;, &quot;.c2&quot;)) %&gt;%
-  left_join(precinct_pct, by = &quot;Precinct&quot;) </code></pre>
-<pre><code>## Warning in left_join(., candidates_df %&gt;% select(-id), by = c(c1_name = &quot;name&quot;)): Detected an unexpected many-to-many relationship between `x` and `y`.
-## ℹ Row 65 of `x` matches multiple rows in `y`.
-## ℹ Row 15 of `y` matches multiple rows in `x`.
-## ℹ If a many-to-many relationship is expected, set `relationship =
-##   &quot;many-to-many&quot;` to silence this warning.</code></pre>
-<pre><code>## Warning in left_join(., candidates_df %&gt;% select(-id, year), by = c(c2_name = &quot;name&quot;), : Detected an unexpected many-to-many relationship between `x` and `y`.
-## ℹ Row 395 of `x` matches multiple rows in `y`.
-## ℹ Row 14 of `y` matches multiple rows in `x`.
-## ℹ If a many-to-many relationship is expected, set `relationship =
-##   &quot;many-to-many&quot;` to silence this warning.</code></pre>
+  left_join(candidates_df %&gt;% select(-id), by = c(&quot;c2_name&quot; = &quot;name&quot;), suffix = c(&quot;.c1&quot;, &quot;.c2&quot;)) %&gt;%
+  inner_join(precinct_pct, by = &quot;Precinct&quot;) 
+  
+# write.csv(full, &quot;./data/full_elections.csv&quot;)</code></pre>
+<pre class="r"><code># Making key variables to regress on </code></pre>
 </div>
 <div id="model" class="section level2">
 <h2>Model</h2>
-<p>Let <span class="math inline">\(y_1,\dots,y_n\)</span> be independent
-random variables such that <span class="math inline">\(y_i \sim
-Beta(\mu, \phi)\)</span> where <span class="math inline">\(E(y) =
+<p>TODO WIP Let <span class="math inline">\(y_1,\dots,y_n\)</span> be
+independent random variables such that <span class="math inline">\(y_i
+\sim Beta(\mu, \phi)\)</span> where <span class="math inline">\(E(y) =
 \mu\)</span> and unknown precision <span class="math inline">\(\phi\)</span>. The logit beta regression model
 will rely on the following parameters:</p>
 <ul>
@@ -474,10 +466,8 @@ endorsement we are interested in</li>
 <code>race</code> and `race.c1``</li>
 <li><span class="math inline">\(\beta_4\)</span> for interaction between
 <code>race</code> and `race.c2``</li>
-<li><span class="math inline">\(\beta_5\)</span> for
-<code>age.c1</code></li>
-<li><span class="math inline">\(\beta_6\)</span> for
-<code>age.c2</code></li>
+<li><span class="math inline">\(\beta_5\)</span></li>
+<li><span class="math inline">\(\beta_6\)</span></li>
 </ul></li>
 <li>Random effects: <span class="math inline">\(\(b_1(\text{Precinct}_i)\)\)</span> is the random
 intercept for the i-th precinct <span class="math inline">\(\(b_2(\text{Precinct}_i) \times
@@ -485,53 +475,53 @@ intercept for the i-th precinct <span class="math inline">\(\(b_2(\text{Precinct
 group nested within the i-th precinct. Finally, <span class="math inline">\(\epsilon_{ij}\)</span> represents the residual
 error for the j-th age group in the i-th precinct.</li>
 </ul>
-<pre class="r"><code>library(lme4)</code></pre>
-<pre><code>## Loading required package: Matrix</code></pre>
-<pre><code>## 
-## Attaching package: &#39;Matrix&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:tidyr&#39;:
-## 
-##     expand, pack, unpack</code></pre>
 <pre class="r"><code># family = list(family=&quot;beta&quot;,link=&quot;logit&quot;)
 
-model = lmer(result ~ (1|Precinct) + PA.c1 + Indy.c1 + Committee.c1 + PA.c2 + Indy.c2 + Committee.c2, data = full)</code></pre>
+model = lmer(result ~ PA.c1 + Indy.c1 + Committee.c1 + PA.c2 + Indy.c2 + Committee.c2 + (1 + PA.c1 + Committee.c1|Precinct),
+             data = full)</code></pre>
 <pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 <pre class="r"><code>summary(model)</code></pre>
-<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
-## Formula: result ~ (1 | Precinct) + PA.c1 + Indy.c1 + Committee.c1 + PA.c2 +  
-##     Indy.c2 + Committee.c2
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
+## Formula: 
+## result ~ PA.c1 + Indy.c1 + Committee.c1 + PA.c2 + Indy.c2 + Committee.c2 +  
+##     (1 + PA.c1 + Committee.c1 | Precinct)
 ##    Data: full
 ## 
-## REML criterion at convergence: -1434.7
+## REML criterion at convergence: -1018.1
 ## 
 ## Scaled residuals: 
 ##     Min      1Q  Median      3Q     Max 
-## -4.6474 -0.3046 -0.0154  0.3811  5.7159 
+## -4.1486 -0.4761 -0.0193  0.4545  4.0343 
 ## 
 ## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  Precinct (Intercept) 0.00000  0.0000  
-##  Residual             0.02158  0.1469  
-## Number of obs: 1483, groups:  Precinct, 91
+##  Groups   Name         Variance  Std.Dev. Corr       
+##  Precinct (Intercept)  0.0099159 0.09958             
+##           PA.c1        0.0257804 0.16056  -1.00      
+##           Committee.c1 0.0004151 0.02037  -1.00  1.00
+##  Residual              0.0215773 0.14689             
+## Number of obs: 1142, groups:  Precinct, 36
 ## 
 ## Fixed effects:
-##               Estimate Std. Error t value
-## (Intercept)  -0.050561   0.022792  -2.218
-## PA.c1         0.150461   0.015522   9.693
-## Indy.c1      -0.024970   0.015184  -1.645
-## Committee.c1  0.005119   0.010216   0.501
-## PA.c2        -0.053685   0.023307  -2.303
-## Indy.c2      -0.023490   0.010376  -2.264
-## Committee.c2 -0.052159   0.021942  -2.377
+##                Estimate Std. Error         df t value Pr(&gt;|t|)    
+## (Intercept)   5.874e-03  2.239e-02  6.284e+01   0.262  0.79394    
+## PA.c1         1.057e-01  3.081e-02  4.388e+01   3.432  0.00132 ** 
+## Indy.c1       1.364e-02  1.270e-02  1.103e+03   1.074  0.28326    
+## Committee.c1  2.440e-02  1.195e-02  1.934e+02   2.042  0.04254 *  
+## PA.c2        -1.130e-01  1.480e-02  1.102e+03  -7.639 4.75e-14 ***
+## Indy.c2      -1.477e-02  1.269e-02  1.103e+03  -1.164  0.24479    
+## Committee.c2 -2.675e-02  1.141e-02  1.100e+03  -2.343  0.01929 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Correlation of Fixed Effects:
 ##             (Intr) PA.c1  Indy.1 Cmmt.1 PA.c2  Indy.2
-## PA.c1       -0.250                                   
-## Indy.c1      0.044 -0.832                            
-## Committe.c1 -0.422  0.274 -0.320                     
-## PA.c2       -0.857  0.268 -0.187  0.321              
-## Indy.c2      0.024 -0.208  0.201 -0.036 -0.434       
-## Committe.c2 -0.901  0.121 -0.083  0.396  0.899 -0.201
+## PA.c1       -0.807                                   
+## Indy.c1     -0.051 -0.322                            
+## Committe.c1 -0.557  0.501 -0.289                     
+## PA.c2       -0.310  0.166 -0.195  0.087              
+## Indy.c2     -0.041 -0.098  0.208 -0.003 -0.684       
+## Committe.c2 -0.355  0.044 -0.002  0.210  0.537 -0.306
 ## optimizer (nloptwrap) convergence code: 0 (OK)
 ## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 </div>
