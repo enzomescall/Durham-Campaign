@@ -1,0 +1,385 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={EDA},
+  pdfauthor={Enzo Moraes Mescall},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{EDA}
+\author{Enzo Moraes Mescall}
+\date{2024-02-26}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Importing data}
+\NormalTok{path }\OtherTok{=} \StringTok{"./data/SC {-} Endorsment Data Analysis {-} "}
+\NormalTok{precinct\_df }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(path, }\StringTok{"precinct.csv"}\NormalTok{))}
+\NormalTok{candidates\_df }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(path, }\StringTok{"candidates.csv"}\NormalTok{))}
+
+\NormalTok{aj\_v\_leo }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(path, }\StringTok{"AJ vs. Leo.csv"}\NormalTok{))}
+\NormalTok{baker\_v\_caballero }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(path, }\StringTok{"Baker vs. Caballero vs. Rist vs. et. al.csv"}\NormalTok{))}
+\NormalTok{johnson\_v\_reece }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(path, }\StringTok{"Johnson vs. Reece vs. Caballero vs. et. al.csv"}\NormalTok{))}
+\NormalTok{murdock\_v\_freelon }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(path, }\StringTok{"Murdock vs. Freelon.csv"}\NormalTok{))}
+\NormalTok{satana\_v\_echols }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(path, }\StringTok{"Satana vs. Echols (County Wide).csv"}\NormalTok{))}
+\NormalTok{schewel\_v\_ali }\OtherTok{=} \FunctionTok{read\_csv}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(path, }\StringTok{"Schewel vs. Ali.csv"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{methodology}{%
+\subsection{Methodology}\label{methodology}}
+
+Build a table which looks like this:
+
+Result \textbar{} Precinct \textbar{} {[}Candidate 1 info {]} \textbar{}
+{[}Candidate 2 info{]} \textbar{} {[}Population info{]}
+
+Where results is the gap between the to candidates. In a multi-candidate
+election we can artificially turn it into a series of head-to-head
+races. We then want to regress on result as the dependent variable and
+identify the independent variables that are most predictive of the
+result.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Buliding the master table}
+
+\CommentTok{\# Demographic percentages of possible voters in the precinct}
+\NormalTok{precinct\_pct }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{lapply}\NormalTok{(precinct\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{precinct\_id), }\ControlFlowTok{function}\NormalTok{(x) x}\SpecialCharTok{/}\NormalTok{precinct\_df}\SpecialCharTok{$}\NormalTok{Total)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{row =} \FunctionTok{row\_number}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{right\_join}\NormalTok{(precinct\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(precinct\_id) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{row =} \FunctionTok{row\_number}\NormalTok{()), }\AttributeTok{by =} \StringTok{"row"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{row, }\SpecialCharTok{{-}}\NormalTok{Total) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(precinct\_id, }\FunctionTok{everything}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename}\NormalTok{(}\StringTok{"Precinct"} \OtherTok{=} \StringTok{"precinct\_id"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pct\_to\_dec }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(string) \{}
+\NormalTok{  string }\OtherTok{=} \FunctionTok{gsub}\NormalTok{(}\StringTok{"\%"}\NormalTok{, }\StringTok{""}\NormalTok{, string)}
+\NormalTok{  string }\OtherTok{=} \FunctionTok{as.numeric}\NormalTok{(string)}
+\NormalTok{  string }\OtherTok{=}\NormalTok{ string}\SpecialCharTok{/}\DecValTok{100}
+  \FunctionTok{return}\NormalTok{(string)}
+\NormalTok{\}}
+
+
+\CommentTok{\# Creating a function to clean up race dataframes}
+\NormalTok{head\_to\_head }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(candidate\_df, candidate\_names)\{}
+  \CommentTok{\# Initialize hth\_df with Precinct, c1\_name, c2\_name, result, c1\_pct, c2\_pct}
+\NormalTok{  hth\_df }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Precinct =} \FunctionTok{character}\NormalTok{(),}
+                      \AttributeTok{c1\_name =} \FunctionTok{character}\NormalTok{(),}
+                      \AttributeTok{c2\_name =} \FunctionTok{character}\NormalTok{(),}
+                      \AttributeTok{result =} \FunctionTok{numeric}\NormalTok{(),}
+                      \AttributeTok{c1\_pct =} \FunctionTok{numeric}\NormalTok{(),}
+                      \AttributeTok{c2\_pct =} \FunctionTok{numeric}\NormalTok{())}
+  
+  \CommentTok{\# Create a matrix of all combination of candidate\_names}
+\NormalTok{  candidate\_combinations }\OtherTok{=} \FunctionTok{expand.grid}\NormalTok{(candidate\_names, candidate\_names) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(Var1 }\SpecialCharTok{!=}\NormalTok{ Var2) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Var1 =} \FunctionTok{as.character}\NormalTok{(Var1), }\AttributeTok{Var2 =} \FunctionTok{as.character}\NormalTok{(Var2)) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(Var1 }\SpecialCharTok{\textless{}}\NormalTok{ Var2)}
+  
+  \CommentTok{\# Loop through the combinations of two names and create a new dataframe}
+  \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(candidate\_combinations))\{}
+\NormalTok{    candidate\_1 }\OtherTok{=}\NormalTok{ candidate\_combinations}\SpecialCharTok{$}\NormalTok{Var1[i]}
+\NormalTok{    candidate\_2 }\OtherTok{=}\NormalTok{ candidate\_combinations}\SpecialCharTok{$}\NormalTok{Var2[i]}
+    
+\NormalTok{    hth }\OtherTok{=}\NormalTok{ candidate\_df }\SpecialCharTok{\%\textgreater{}\%}
+      \FunctionTok{mutate}\NormalTok{(}\AttributeTok{c1\_pct =} \FunctionTok{pct\_to\_dec}\NormalTok{(}\FunctionTok{get}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"\%"}\NormalTok{, candidate\_1))),}
+             \AttributeTok{c2\_pct =} \FunctionTok{pct\_to\_dec}\NormalTok{(}\FunctionTok{get}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"\%"}\NormalTok{, candidate\_2))),}
+             \AttributeTok{result =}\NormalTok{ c1\_pct }\SpecialCharTok{{-}}\NormalTok{ c2\_pct,}
+             \AttributeTok{c1\_name =}\NormalTok{ candidate\_1,}
+             \AttributeTok{c2\_name =}\NormalTok{ candidate\_2) }\SpecialCharTok{\%\textgreater{}\%}
+      \FunctionTok{select}\NormalTok{(Precinct, c1\_name, c2\_name, result, c1\_pct, c2\_pct)}
+    
+    \CommentTok{\# Append hth to the bottom of hth\_df}
+\NormalTok{    hth\_df }\OtherTok{=} \FunctionTok{bind\_rows}\NormalTok{(hth\_df, hth)}
+\NormalTok{  \}}
+  \FunctionTok{return}\NormalTok{(hth\_df)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aj\_v\_leo\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(aj\_v\_leo, }\FunctionTok{c}\NormalTok{(}\StringTok{"AJ Williams"}\NormalTok{, }\StringTok{"Leonardo Williams"}\NormalTok{))}
+\NormalTok{baker\_v\_caballero\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(baker\_v\_caballero, }\FunctionTok{c}\NormalTok{(}\StringTok{"Nate Baker"}\NormalTok{, }\StringTok{"Javiera Caballero"}\NormalTok{, }\StringTok{"Carl Rist"}\NormalTok{, }\StringTok{"Khalilah Karim"}\NormalTok{, }\StringTok{"Monique Holsey{-}Hyman"}\NormalTok{, }\StringTok{"Shelia Ann Huggins"}\NormalTok{))}
+\NormalTok{johnson\_v\_reece\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(johnson\_v\_reece, }\FunctionTok{c}\NormalTok{(}\StringTok{"Jillian Johnson"}\NormalTok{, }\StringTok{"Charlie Reece"}\NormalTok{, }\StringTok{"Javiera Caballero"}\NormalTok{, }\StringTok{"Daniel Meier"}\NormalTok{, }\StringTok{"Jacqueline Wagstaff"}\NormalTok{))}
+\NormalTok{murdock\_v\_freelon\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(murdock\_v\_freelon, }\FunctionTok{c}\NormalTok{(}\StringTok{"Natalie Murdock"}\NormalTok{, }\StringTok{"Pierce Freelon"}\NormalTok{, }\StringTok{"Gray Ellis"}\NormalTok{))}
+\NormalTok{satana\_v\_echols\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(satana\_v\_echols, }\FunctionTok{c}\NormalTok{(}\StringTok{"Satana Deberry"}\NormalTok{, }\StringTok{"Roger Echols"}\NormalTok{, }\StringTok{"Daniel Meier"}\NormalTok{))}
+\NormalTok{schewel\_v\_ali\_hth }\OtherTok{=} \FunctionTok{head\_to\_head}\NormalTok{(schewel\_v\_ali, }\FunctionTok{c}\NormalTok{(}\StringTok{"Steve Schewel"}\NormalTok{, }\StringTok{"Farad Ali"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# binding all}
+\NormalTok{hth\_df }\OtherTok{=} \FunctionTok{bind\_rows}\NormalTok{(aj\_v\_leo\_hth, baker\_v\_caballero\_hth, johnson\_v\_reece\_hth, murdock\_v\_freelon\_hth, satana\_v\_echols\_hth, schewel\_v\_ali\_hth)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Joining with precinct\_pct and candidates\_df}
+\NormalTok{full }\OtherTok{=}\NormalTok{ hth\_df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{left\_join}\NormalTok{(candidates\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{id), }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"c1\_name"} \OtherTok{=} \StringTok{"name"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{left\_join}\NormalTok{(candidates\_df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{id, year), }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"c2\_name"} \OtherTok{=} \StringTok{"name"}\NormalTok{), }\AttributeTok{suffix =} \FunctionTok{c}\NormalTok{(}\StringTok{".c1"}\NormalTok{, }\StringTok{".c2"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{left\_join}\NormalTok{(precinct\_pct, }\AttributeTok{by =} \StringTok{"Precinct"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in left_join(., candidates_df %>% select(-id), by = c(c1_name = "name")): Detected an unexpected many-to-many relationship between `x` and `y`.
+## i Row 65 of `x` matches multiple rows in `y`.
+## i Row 15 of `y` matches multiple rows in `x`.
+## i If a many-to-many relationship is expected, set `relationship =
+##   "many-to-many"` to silence this warning.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in left_join(., candidates_df %>% select(-id, year), by = c(c2_name = "name"), : Detected an unexpected many-to-many relationship between `x` and `y`.
+## i Row 395 of `x` matches multiple rows in `y`.
+## i Row 14 of `y` matches multiple rows in `x`.
+## i If a many-to-many relationship is expected, set `relationship =
+##   "many-to-many"` to silence this warning.
+\end{verbatim}
+
+\hypertarget{model}{%
+\subsection{Model}\label{model}}
+
+Let \(y_1,\dots,y_n\) be independent random variables such that
+\(y_i \sim Beta(\mu, \phi)\) where \(E(y) = \mu\) and unknown precision
+\(\phi\). The logit beta regression model will rely on the following
+parameters:
+
+\begin{itemize}
+\tightlist
+\item
+  \(y_i\) is the observed percentage of a head-to-head race between
+  candidates \(c_1\) and \(c_2\) in precinct \(i\).
+\item
+  Fixed effect coefficients:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\beta_0\) is the intercept
+  \item
+    \(\beta_1\) for whichever endorsement we are interested in
+  \item
+    \(\beta_2\) for \texttt{incubent}
+  \item
+    \(\beta_3\) for interaction between \texttt{race} and `race.c1``
+  \item
+    \(\beta_4\) for interaction between \texttt{race} and `race.c2``
+  \item
+    \(\beta_5\) for \texttt{age.c1}
+  \item
+    \(\beta_6\) for \texttt{age.c2}
+  \end{itemize}
+\item
+  Random effects: \(\(b_1(\text{Precinct}_i)\)\) is the random intercept
+  for the i-th precinct
+  \(\(b_2(\text{Precinct}_i) \times \text{Age}_{j[i]}\)\) is the random
+  intercept for the j-th age group nested within the i-th precinct.
+  Finally, \(\epsilon_{ij}\) represents the residual error for the j-th
+  age group in the i-th precinct.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lme4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'Matrix'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:tidyr':
+## 
+##     expand, pack, unpack
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# family = list(family="beta",link="logit")}
+
+\NormalTok{model }\OtherTok{=} \FunctionTok{lmer}\NormalTok{(result }\SpecialCharTok{\textasciitilde{}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{Precinct) }\SpecialCharTok{+}\NormalTok{ PA.c1 }\SpecialCharTok{+}\NormalTok{ Indy.c1 }\SpecialCharTok{+}\NormalTok{ Committee.c1 }\SpecialCharTok{+}\NormalTok{ PA.c2 }\SpecialCharTok{+}\NormalTok{ Indy.c2 }\SpecialCharTok{+}\NormalTok{ Committee.c2, }\AttributeTok{data =}\NormalTok{ full)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## boundary (singular) fit: see help('isSingular')
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: result ~ (1 | Precinct) + PA.c1 + Indy.c1 + Committee.c1 + PA.c2 +  
+##     Indy.c2 + Committee.c2
+##    Data: full
+## 
+## REML criterion at convergence: -1434.7
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -4.6474 -0.3046 -0.0154  0.3811  5.7159 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  Precinct (Intercept) 0.00000  0.0000  
+##  Residual             0.02158  0.1469  
+## Number of obs: 1483, groups:  Precinct, 91
+## 
+## Fixed effects:
+##               Estimate Std. Error t value
+## (Intercept)  -0.050561   0.022792  -2.218
+## PA.c1         0.150461   0.015522   9.693
+## Indy.c1      -0.024970   0.015184  -1.645
+## Committee.c1  0.005119   0.010216   0.501
+## PA.c2        -0.053685   0.023307  -2.303
+## Indy.c2      -0.023490   0.010376  -2.264
+## Committee.c2 -0.052159   0.021942  -2.377
+## 
+## Correlation of Fixed Effects:
+##             (Intr) PA.c1  Indy.1 Cmmt.1 PA.c2  Indy.2
+## PA.c1       -0.250                                   
+## Indy.c1      0.044 -0.832                            
+## Committe.c1 -0.422  0.274 -0.320                     
+## PA.c2       -0.857  0.268 -0.187  0.321              
+## Indy.c2      0.024 -0.208  0.201 -0.036 -0.434       
+## Committe.c2 -0.901  0.121 -0.083  0.396  0.899 -0.201
+## optimizer (nloptwrap) convergence code: 0 (OK)
+## boundary (singular) fit: see help('isSingular')
+\end{verbatim}
+
+\hypertarget{todo}{%
+\subsection{Todo}\label{todo}}
+
+\begin{itemize}
+\tightlist
+\item
+  turn endorsements into a factor
+\item
+  build precinct random effect precinct table
+\item
+  decide on random effect between precinct and candidate
+\end{itemize}
+
+\end{document}

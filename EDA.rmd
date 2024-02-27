@@ -2,18 +2,20 @@
 title: "EDA"
 author: "Enzo Moraes Mescall"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE, include=FALSE}
 library(tidyverse)
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 # Importing data
 path = "./data/SC - Endorsment Data Analysis - "
 precinct_df = read_csv(paste0(path, "precinct.csv"))
@@ -43,7 +45,8 @@ precinct_pct = data.frame(lapply(precinct_df %>% select(-precinct_id), function(
   mutate(row = row_number()) %>%
   right_join(precinct_df %>% select(precinct_id) %>% mutate(row = row_number()), by = "row") %>%
   select(-row, -Total) %>%
-  select(precinct_id, everything()) 
+  select(precinct_id, everything()) %>%
+  rename("Precinct" = "precinct_id") 
 ```
 
 ```{r}
@@ -57,12 +60,19 @@ pct_to_dec = function(string) {
 
 # Creating a function to clean up race dataframes
 head_to_head = function(candidate_df, candidate_names){
-  hth_df_list = c()
+  # Initialize hth_df with Precinct, c1_name, c2_name, result, c1_pct, c2_pct
+  hth_df = data.frame(Precinct = character(),
+                      c1_name = character(),
+                      c2_name = character(),
+                      result = numeric(),
+                      c1_pct = numeric(),
+                      c2_pct = numeric())
   
   # Create a matrix of all combination of candidate_names
   candidate_combinations = expand.grid(candidate_names, candidate_names) %>%
     filter(Var1 != Var2) %>%
-    mutate(Var1 = as.character(Var1), Var2 = as.character(Var2))
+    mutate(Var1 = as.character(Var1), Var2 = as.character(Var2)) %>%
+    filter(Var1 < Var2)
   
   # Loop through the combinations of two names and create a new dataframe
   for(i in 1:nrow(candidate_combinations)){
@@ -70,27 +80,77 @@ head_to_head = function(candidate_df, candidate_names){
     candidate_2 = candidate_combinations$Var2[i]
     
     hth = candidate_df %>%
-      select(Precinct,
-             starts_with(candidate_1), starts_with(candidate_2),
-             starts_with(paste0("%", candidate_1)),
-             starts_with(paste0("%", candidate_2))) %>%
       mutate(c1_pct = pct_to_dec(get(paste0("%", candidate_1))),
              c2_pct = pct_to_dec(get(paste0("%", candidate_2))),
              result = c1_pct - c2_pct,
              c1_name = candidate_1,
              c2_name = candidate_2) %>%
       select(Precinct, c1_name, c2_name, result, c1_pct, c2_pct)
-    hth_df_list = c(hth_df_list, hth)
+    
+    # Append hth to the bottom of hth_df
+    hth_df = bind_rows(hth_df, hth)
   }
-  return(hth_df_list)
+  return(hth_df)
 }
 ```
 
-```{r}
-head_to_head(aj_v_leo, c("AJ Williams", "Leonardo Williams"))
+```{r message=FALSE, warning=FALSE}
+aj_v_leo_hth = head_to_head(aj_v_leo, c("AJ Williams", "Leonardo Williams"))
+baker_v_caballero_hth = head_to_head(baker_v_caballero, c("Nate Baker", "Javiera Caballero", "Carl Rist", "Khalilah Karim", "Monique Holsey-Hyman", "Shelia Ann Huggins"))
+johnson_v_reece_hth = head_to_head(johnson_v_reece, c("Jillian Johnson", "Charlie Reece", "Javiera Caballero", "Daniel Meier", "Jacqueline Wagstaff"))
+murdock_v_freelon_hth = head_to_head(murdock_v_freelon, c("Natalie Murdock", "Pierce Freelon", "Gray Ellis"))
+satana_v_echols_hth = head_to_head(satana_v_echols, c("Satana Deberry", "Roger Echols", "Daniel Meier"))
+schewel_v_ali_hth = head_to_head(schewel_v_ali, c("Steve Schewel", "Farad Ali"))
 ```
 
 ```{r}
+# binding all
+hth_df = bind_rows(aj_v_leo_hth, baker_v_caballero_hth, johnson_v_reece_hth, murdock_v_freelon_hth, satana_v_echols_hth, schewel_v_ali_hth)
 ```
 
+```{r}
+# Joining with precinct_pct and candidates_df
+full = hth_df %>%
+  left_join(candidates_df %>% select(-id), by = c("c1_name" = "name")) %>%
+  left_join(candidates_df %>% select(-id, year), by = c("c2_name" = "name"), suffix = c(".c1", ".c2")) %>%
+  left_join(precinct_pct, by = "Precinct") 
+  
+```
 
+## Model
+
+Let $y_1,\dots,y_n$ be independent random variables such that $y_i \sim Beta(\mu, \phi)$ where $E(y) = \mu$ and unknown precision $\phi$. The logit beta regression model will rely on the following parameters:
+
+* $y_i$ is the observed percentage of a head-to-head race between candidates $c_1$ and $c_2$ in precinct $i$.
+* Fixed effect coefficients:
+  + $\beta_0$ is the intercept
+  + $\beta_1$ for whichever endorsement we are interested in
+  + $\beta_2$ for `incubent`
+  + $\beta_3$ for interaction between `race` and `race.c1``
+  + $\beta_4$ for interaction between `race` and `race.c2``
+  + $\beta_5$ for `age.c1`
+  + $\beta_6$ for `age.c2`
+* Random effects:
+  $\(b_1(\text{Precinct}_i)\)$ is the random intercept for the i-th precinct
+   $\(b_2(\text{Precinct}_i) \times \text{Age}_{j[i]}\)$ is the random intercept for the j-th age group nested within the i-th precinct.
+Finally, $\epsilon_{ij}$ represents the residual error for the j-th age group in the i-th precinct.
+
+
+
+```{r}
+library(lme4)
+```
+
+```{r}
+# family = list(family="beta",link="logit")
+
+model = lmer(result ~ (1|Precinct) + PA.c1 + Indy.c1 + Committee.c1 + PA.c2 + Indy.c2 + Committee.c2, data = full)
+```
+```{r}
+summary(model)
+```
+
+## Todo
+- turn endorsements into a factor
+- build precinct random effect precinct table
+- decide on random effect between precinct and candidate
