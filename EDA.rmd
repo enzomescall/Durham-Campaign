@@ -160,7 +160,7 @@ Finally, $\epsilon_{ij}$ represents the residual error for the j-th age group in
 # family = list(family="beta",link="logit")
 
 model = lmer(result ~ -1 + PA.c1 + Indy.c1 + Committee.c1 + PA.c2 + Indy.c2 + Committee.c2 + (-1 + Indy.c1 + PA.c2 + Committee.c2 + race.c1 + age.c1 + sex.c1|Precinct),
-             data = full)
+             data = only_sophia)
 summary(model)
 ```
 ```{r}
@@ -175,14 +175,15 @@ print("random + fixed")
 
 precinct_effects$Precinct$Indy.c1 + precinct_effects$Precinct$race.c1white + precinct_effects$Precinct$age.c1old + precinct_effects$Precinct$sex.c1male + fixed_effects[2] + fixed_effects[4] + fixed_effects[6]
 
-precinct_effects$Precinct %>%
+precinct_csv = precinct_effects$Precinct %>%
   mutate(Indy.c1 = Indy.c1 + fixed_effects[2], PA.c2 = PA.c2 + fixed_effects[4], Committee.c2 = Committee.c2 +fixed_effects[6]) %>%
   mutate(effects = Indy.c1 + race.c1white + age.c1old + sex.c1male) %>% select(effects) %>%
   mutate(effects = (effects - min(effects)) / (max(effects) - min(effects))) %>%
   rename(precinct_importance = effects)
 
-# write.csv(precinct_effects$Precinct, "./data/precinct_effects.csv")
+write.csv(precinct_csv %>% mutate(precinct_importance = round(precinct_importance, 3)), "./data/precinct_final.csv")
 ```
+
 
 
 ## Todo
