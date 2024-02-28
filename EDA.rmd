@@ -180,6 +180,8 @@ precinct_effects$Precinct %>%
   mutate(effects = Indy.c1 + race.c1white + age.c1old + sex.c1male) %>% select(effects) %>%
   mutate(effects = (effects - min(effects)) / (max(effects) - min(effects))) %>%
   rename(precinct_importance = effects)
+
+# write.csv(precinct_effects$Precinct, "./data/precinct_effects.csv")
 ```
 
 
