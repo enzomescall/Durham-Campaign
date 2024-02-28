@@ -114,14 +114,24 @@ hth_df = bind_rows(aj_v_leo_hth, baker_v_caballero_hth, johnson_v_reece_hth, mur
 full = hth_df %>%
   left_join(candidates_df %>% select(-id), by = c("c1_name" = "name")) %>%
   left_join(candidates_df %>% select(-id), by = c("c2_name" = "name"), suffix = c(".c1", ".c2")) %>%
+  left_join(precinct_pct, by = "Precinct")  %>%
+  filter(Precinct != "ABSENTEE" | Precinct != "ABS")
+
+only_sophia = hth_df %>%
+  left_join(candidates_df %>% select(-id), by = c("c1_name" = "name")) %>%
+  left_join(candidates_df %>% select(-id), by = c("c2_name" = "name"), suffix = c(".c1", ".c2")) %>%
   inner_join(precinct_pct, by = "Precinct") 
   
 # write.csv(full, "./data/full_elections.csv")
+# write.csv(only_sophia, "./data/full_elections.csv")
 ```
 
 
 ```{r}
 # Making key variables to regress on 
+
+
+# create candidate precinct alignment
 
 ```
 
@@ -149,10 +159,29 @@ Finally, $\epsilon_{ij}$ represents the residual error for the j-th age group in
 ```{r}
 # family = list(family="beta",link="logit")
 
-model = lmer(result ~ PA.c1 + Indy.c1 + Committee.c1 + PA.c2 + Indy.c2 + Committee.c2 + (1 + PA.c1 + Committee.c1|Precinct),
+model = lmer(result ~ -1 + PA.c1 + Indy.c1 + Committee.c1 + PA.c2 + Indy.c2 + Committee.c2 + (-1 + Indy.c1 + PA.c2 + Committee.c2 + race.c1 + age.c1 + sex.c1|Precinct),
              data = full)
 summary(model)
 ```
+```{r}
+precinct_effects = ranef(model)
+fixed_effects = summary(model)$coefficients
+
+print("random")
+
+precinct_effects$Precinct$Indy.c1 + precinct_effects$Precinct$race.c1white + precinct_effects$Precinct$age.c1old + precinct_effects$Precinct$sex.c1male
+
+print("random + fixed")
+
+precinct_effects$Precinct$Indy.c1 + precinct_effects$Precinct$race.c1white + precinct_effects$Precinct$age.c1old + precinct_effects$Precinct$sex.c1male + fixed_effects[2] + fixed_effects[4] + fixed_effects[6]
+
+precinct_effects$Precinct %>%
+  mutate(Indy.c1 = Indy.c1 + fixed_effects[2], PA.c2 = PA.c2 + fixed_effects[4], Committee.c2 = Committee.c2 +fixed_effects[6]) %>%
+  mutate(effects = Indy.c1 + race.c1white + age.c1old + sex.c1male) %>% select(effects) %>%
+  mutate(effects = (effects - min(effects)) / (max(effects) - min(effects))) %>%
+  rename(precinct_importance = effects)
+```
+
 
 ## Todo
 - turn endorsements into a factor
