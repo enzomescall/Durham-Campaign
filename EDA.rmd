@@ -159,34 +159,52 @@ Finally, $\epsilon_{ij}$ represents the residual error for the j-th age group in
 ```{r}
 # family = list(family="beta",link="logit")
 
-model = lmer(result ~ -1 + PA.c1 + Indy.c1 + Committee.c1 + PA.c2 + Indy.c2 + Committee.c2 + (-1 + Indy.c1 + PA.c2 + Committee.c2 + race.c1 + age.c1 + sex.c1|Precinct),
-             data = only_sophia)
+model = lmer(result ~ -1 + PA.c1 + Indy.c1 + Committee.c1 + PA.c2 + Indy.c2 + Committee.c2 + age.c1 + sex.c1 + (-1 + Indy.c1 + PA.c2 + Committee.c2 + race.c1 + age.c1 + sex.c1|Precinct), data = only_sophia)
 summary(model)
 ```
 ```{r}
 precinct_effects = ranef(model)
 fixed_effects = summary(model)$coefficients
+```
 
-print("random")
+```{r}
+sophia_pct = precinct_effects$Precinct %>% 
+  mutate(Indy.c1 = round((Indy.c1 + fixed_effects[2])/2, 3),
+         PA.c2 = round((PA.c2 + fixed_effects[4])/2, 3),
+         Committee.c2 = round((Committee.c2 +fixed_effects[6])/2, 3),
+         age.c1old = round((age.c1old + fixed_effects[8])/2, 3),
+         sex.c1male = round((sex.c1male + fixed_effects[10])/2, 3)) %>%
+  select(Indy.c1, PA.c2, Committee.c2, age.c1old, sex.c1male) %>% 
+  mutate(total = (Indy.c1 + PA.c2 + Committee.c2 + age.c1old + sex.c1male)/5)
 
-precinct_effects$Precinct$Indy.c1 + precinct_effects$Precinct$race.c1white + precinct_effects$Precinct$age.c1old + precinct_effects$Precinct$sex.c1male
+write.csv(sophia_pct, "./data/precinct_all_factors_pct.csv")
+```
 
-print("random + fixed")
-
-precinct_effects$Precinct$Indy.c1 + precinct_effects$Precinct$race.c1white + precinct_effects$Precinct$age.c1old + precinct_effects$Precinct$sex.c1male + fixed_effects[2] + fixed_effects[4] + fixed_effects[6]
-
-precinct_csv = precinct_effects$Precinct %>%
-  mutate(Indy.c1 = Indy.c1 + fixed_effects[2], PA.c2 = PA.c2 + fixed_effects[4], Committee.c2 = Committee.c2 +fixed_effects[6]) %>%
-  mutate(effects = Indy.c1 + race.c1white + age.c1old + sex.c1male) %>% select(effects) %>%
+```{r}
+precinct_csv =  sophia_pct %>%
+  mutate(effects = Indy.c1 + PA.c2 + Committee.c2 + age.c1old + sex.c1male) %>% select(effects) %>%
   mutate(effects = (effects - min(effects)) / (max(effects) - min(effects))) %>%
   rename(precinct_importance = effects)
 
-write.csv(precinct_csv %>% mutate(precinct_importance = round(precinct_importance, 3)), "./data/precinct_final.csv")
+write.csv(precinct_csv %>% mutate(precinct_importance = round(precinct_importance, 3)), "./data/precinct_all_factors_index.csv")
 ```
 
+```{r}
+endorsements_pct = precinct_effects$Precinct %>%
+  mutate(Indy = (Indy.c1 + fixed_effects[2])/2, PA = (PA.c2 + fixed_effects[4])/2, Committee = (Committee.c2 +fixed_effects[6])/2) %>%
+  select(Indy, PA, Committee) %>%
+  mutate(total = (Indy + PA + Committee)/3)
 
+write.csv(endorsements_pct %>% mutate(Indy = round(Indy, 3), PA = round(PA, 3), Committee = round(Committee, 3)), "./data/precinct_endorsements_pct.csv")
+```
 
-## Todo
-- turn endorsements into a factor
-- build precinct random effect precinct table
-- decide on random effect between precinct and candidate
+```{r}
+endorsements = endorsements_pct %>%
+  select(Indy, PA, Committee) %>%
+  mutate(Indy = (Indy - min(Indy)) / (max(Indy) - min(Indy)),
+         PA = (PA - min(PA)) / (max(PA) - min(PA)),
+         Committee = (Committee - min(Committee)) / (max(Committee) - min(Committee)))
+
+write.csv(endorsements %>% mutate(Indy = round(Indy, 3), PA = round(PA, 3), Committee = round(Committee, 3)), "./data/precinct_endorsements_index.csv")
+```
+
