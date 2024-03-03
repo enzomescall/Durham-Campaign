@@ -175,7 +175,7 @@ sophia_pct = precinct_effects$Precinct %>%
          age.c1old = round((age.c1old + fixed_effects[8])/2, 3),
          sex.c1male = round((sex.c1male + fixed_effects[10])/2, 3)) %>%
   select(Indy.c1, PA.c2, Committee.c2, age.c1old, sex.c1male) %>% 
-  mutate(total = (Indy.c1 + PA.c2 + Committee.c2 + age.c1old + sex.c1male)/5)
+  mutate(total = round((Indy.c1 + PA.c2 + Committee.c2 + age.c1old + sex.c1male)/5,3))
 
 write.csv(sophia_pct, "./data/precinct_all_factors_pct.csv")
 ```
@@ -193,7 +193,7 @@ write.csv(precinct_csv %>% mutate(precinct_importance = round(precinct_importanc
 endorsements_pct = precinct_effects$Precinct %>%
   mutate(Indy = (Indy.c1 + fixed_effects[2])/2, PA = (PA.c2 + fixed_effects[4])/2, Committee = (Committee.c2 +fixed_effects[6])/2) %>%
   select(Indy, PA, Committee) %>%
-  mutate(total = (Indy + PA + Committee)/3)
+  mutate(total = round((Indy + PA + Committee)/3, 3))
 
 write.csv(endorsements_pct %>% mutate(Indy = round(Indy, 3), PA = round(PA, 3), Committee = round(Committee, 3)), "./data/precinct_endorsements_pct.csv")
 ```
