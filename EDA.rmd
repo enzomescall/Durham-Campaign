@@ -208,3 +208,22 @@ endorsements = endorsements_pct %>%
 write.csv(endorsements %>% mutate(Indy = round(Indy, 3), PA = round(PA, 3), Committee = round(Committee, 3)), "./data/precinct_endorsements_index.csv")
 ```
 
+total %
+
+```{r}
+total_votes = sophia_pct %>% 
+  mutate(Precinct = rownames(sophia_pct)) %>%
+  rename(total_pct = total) %>%
+  inner_join(precinct_df %>% rename(Precinct = precinct_id), by = "Precinct") %>%
+  mutate(votes_no_null = round(Total/2 - total_pct * Total), 2) %>%
+  select(Precinct, votes_no_null, Total)
+```
+  
+```{r}
+print("we expect the following % advantage")
+100*(sum(total_votes$votes_no_null)/sum(total_votes$Total) - 0.5)
+print("which is this many votes ahead");
+sum(total_votes$Total)*(sum(total_votes$votes_no_null)/sum(total_votes$Total) - 0.5)
+```
+
+
